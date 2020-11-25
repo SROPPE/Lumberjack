@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9447274fa595c1b4b9cacf28f5ba2690, type: 3}
   m_Name: PlayerGoldAmount
   m_EditorClassIdentifier: 
-  value: 100
+  value: 0
   isConstant: 0
   constantValue: 0

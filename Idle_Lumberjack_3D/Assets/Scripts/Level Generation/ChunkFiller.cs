@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class ChunkFiller : MonoBehaviour
 {
     [System.Serializable]
@@ -19,11 +21,15 @@ public class ChunkFiller : MonoBehaviour
     [SerializeField][Range(0.5f, 1.5f)] float randomSizeUpperBound;
     [SerializeField][Range(0.5f, 1.5f)] float randomSizeLowerBound;
     [SerializeField] Vector3 randomRotationUpperBound;
-    private void Start()
+    private void OnGUI()
     {
-        SpawnObjectsInZone();
+      
+        if(GUILayout.Button("Fill"))
+        {
+            SpawnObjectsInZone();
+        }
     }
-    private void SpawnObjectsInZone()
+    public void SpawnObjectsInZone()
     {
         foreach (var bounds in zoneBounds)
         {

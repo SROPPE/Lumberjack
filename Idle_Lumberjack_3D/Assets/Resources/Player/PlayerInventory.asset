@@ -48,6 +48,27 @@ MonoBehaviour:
       itemName: 5
       currentView: {fileID: 0}
       price: 3
+  - prefabUI: {fileID: 2527747151694596559, guid: 4c684493998ba434195e7def7c89ba72,
+      type: 3}
+    data:
+      amount: 0
+      itemName: 6
+      currentView: {fileID: 0}
+      price: 3
+  - prefabUI: {fileID: 2527747151694596559, guid: 4c684493998ba434195e7def7c89ba72,
+      type: 3}
+    data:
+      amount: 0
+      itemName: 7
+      currentView: {fileID: 0}
+      price: 3
+  - prefabUI: {fileID: 2527747151694596559, guid: 4c684493998ba434195e7def7c89ba72,
+      type: 3}
+    data:
+      amount: 0
+      itemName: 9
+      currentView: {fileID: 0}
+      price: 3
   OnItemAdded: {fileID: 11400000, guid: eec1adf8431b03b499f0b8994df861d6, type: 2}
   OnItemRemoved: {fileID: 11400000, guid: 37dd3d150cac79f48a166d2b98a95b69, type: 2}
   OnItemSpended: {fileID: 11400000, guid: 5190627a8f6817d4ea5c7ed897bbc6c5, type: 2}

@@ -12,6 +12,7 @@ namespace Lumberjack.Stats
         public float GetStat(CharacterType character, Stat stat, int level)
         {
             BuildLookup();
+
             float[] levels = _lookupTable[character][stat];
             if (levels.Length <= level - 1)
             {
@@ -34,6 +35,8 @@ namespace Lumberjack.Stats
         }
         public float GetMaxLevel(Stat stat, CharacterType characterClass)
         {
+            BuildLookup(); 
+
             var levels = _lookupTable[characterClass][stat];
             return levels.Length;
         }

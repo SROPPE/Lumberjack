@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 6332811671812613639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.82416815, y: 0.82416815, z: 0.82416815}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6332811671397914612}
   - {fileID: 6332811673044687342}
@@ -276,8 +276,8 @@ MonoBehaviour:
   level: 0
   chunkEndPoint: {fileID: 6332811672544780538}
   chunkBasePoint: {fileID: 6296154570992296636}
-  nextZoneSpawner: {fileID: 6332811672420510867}
-  replaceBase: {fileID: 6332811671552906513}
+  nextZoneSpawnerTrigger: {fileID: 6332811672420510867}
+  replaceBaseTrigger: {fileID: 6332811671552906513}
   transitionUIPrefab: {fileID: 3913451125232122970, guid: e93e2236c7d4bcb4889ab6e9f15e5362,
     type: 3}
   UIParent: {fileID: 0}
