@@ -73,7 +73,7 @@ namespace Lumberjack.Actions.Combat
         private void RotateToClosestEnemy(Vector3 enemy)
         {
             var enemyPosition = new Vector3(enemy.x,transform.position.y,enemy.z);
-            transform.LookAt(enemy);
+            transform.LookAt(enemyPosition);
         }
         public void Hit()
         {

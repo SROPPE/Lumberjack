@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Lumberjack.Control;
+using System;
 using UnityEngine;
 
 public class TriggerRegion : MonoBehaviour
 {
-    [SerializeField] private string requiredTag = "Player";
     public event Action<GameObject> EnterZone;
     public event Action<GameObject> LeaveZone;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(requiredTag))
+        if (other.GetComponent<Player>())
         {
             EnterZone?.Invoke(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(requiredTag))
+        if (other.GetComponent<Player>())
         {
             LeaveZone?.Invoke(other.gameObject);
         }

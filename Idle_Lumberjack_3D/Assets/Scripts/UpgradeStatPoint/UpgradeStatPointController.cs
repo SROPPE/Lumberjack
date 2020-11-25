@@ -1,20 +1,15 @@
 ﻿using Lumberjack.Stats;
 using UnityEngine;
-public class UpgradeStatPointDataWrapper
-{
-    public string statUpgradeSize;
-    public string currentStatLevel;
-    public string goldRequired;
-    public string currentStatSize;
-}
+
 public class UpgradeStatPointController : MonoBehaviour
 {
     [SerializeField] private TriggerRegion zoneTrigger;
-    [SerializeField] private UpgradeStatPointData upgradeStatPointData;
+    [SerializeField] private UpgradeStatPointData data;
+    [SerializeField] private UpgradeStatPointView viewPrefab;
     [SerializeField] private Transform viewParent;
-    [SerializeField] private Transform viewPrefab;
     [SerializeField] private Stat statType;
-    BaseStats _statsToUpgrade;
+    
+    private BaseStats _statsToUpgrade;
 
     private UpgradeStatPointView _upgradeStatPointView;
     private Wallet _playerWallet;
@@ -37,7 +32,7 @@ public class UpgradeStatPointController : MonoBehaviour
     }
     private void EndProcessing(GameObject player)
     {
-        _upgradeStatPointView.InteractableButton.onClick.RemoveListener(Upgrade);
+        _upgradeStatPointView.InteractableButton.onClick.RemoveListener(UpgradeStat);
         _upgradeStatPointView.gameObject.SetActive(false);
     }
 
@@ -45,15 +40,21 @@ public class UpgradeStatPointController : MonoBehaviour
     {
         if (_upgradeStatPointView == null)
         {
-            var viewGO = Instantiate(viewPrefab, viewParent);
-            _upgradeStatPointView = viewGO.GetComponent<UpgradeStatPointView>();
+            var view = Instantiate(viewPrefab, viewParent);
+            _upgradeStatPointView = view;
         }
         _upgradeStatPointView.gameObject.SetActive(true);
-        _upgradeStatPointView.InteractableButton.onClick.AddListener(Upgrade);
+        SetViewActions();
 
         UpdateView();
     }
-    private void Upgrade()
+    
+    private void SetViewActions()
+    {
+        _upgradeStatPointView.InteractableButton.onClick.AddListener(UpgradeStat);
+    }
+
+    private void UpgradeStat()
     {
         _playerWallet.SpendMoney(_statsToUpgrade.CalculateStatWithoutModifiers(Stat.GoldRequired, _statsToUpgrade.GetStatLevel(statType)));
         _statsToUpgrade.UpgradeStat(statType);
@@ -63,27 +64,20 @@ public class UpgradeStatPointController : MonoBehaviour
 
     private void UpdateView()
     {
-
         UpdatePlayerCapabillity();
-        var data = GetDataForUpdate();
+        PrepareDataForUpdate();
 
         _upgradeStatPointView.UpdateView(data);
     }
-
-    //Need refactoring
-    private UpgradeStatPointDataWrapper GetDataForUpdate()
+    private void PrepareDataForUpdate()
     {
-        UpgradeStatPointDataWrapper data = new UpgradeStatPointDataWrapper();
-
-        data.currentStatLevel = upgradeStatPointData.upgradeStatPointName + _statsToUpgrade.GetStatLevel(statType);
-        data.currentStatSize = upgradeStatPointData.currentStatName + _statsToUpgrade.GetStat(statType);
+        data.currentStatLevel = _statsToUpgrade.GetStatLevel(statType).ToString();
+        data.currentStatSize = _statsToUpgrade.CalculateStatWithoutModifiers(statType, _statsToUpgrade.GetStatLevel(statType)).ToString();
 
         float requiredGold = _statsToUpgrade.CalculateStatWithoutModifiers(Stat.GoldRequired, _statsToUpgrade.GetStatLevel(statType));
+
         data.goldRequired = requiredGold.ToString();
-
-        data.statUpgradeSize = "+" + _statsToUpgrade.GetStatUpgradeValue(statType, 1).ToString();
-
-        return data;
+        data.statUpgradeSize = _statsToUpgrade.GetUpgradedStatValue(statType, 1).ToString();
     }
 
     private void UpdatePlayerCapabillity()
@@ -99,8 +93,4 @@ public class UpgradeStatPointController : MonoBehaviour
             _upgradeStatPointView.InteractableButton.interactable = false;
         }
     }
-
-
-
-
 }

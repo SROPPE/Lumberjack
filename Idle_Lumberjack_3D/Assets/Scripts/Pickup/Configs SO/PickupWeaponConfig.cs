@@ -18,7 +18,7 @@ namespace Lumberjack.Pickup.Config
 
         public override void ApplyPickup(GameObject player)
         {
-            SpawnWeapon(player.GetComponent<PlayerController>().RightArm);
+            SpawnWeapon(player.GetComponent<Player>().RightArm);
         }
         public void SpawnWeapon(Transform rightHand)
         {

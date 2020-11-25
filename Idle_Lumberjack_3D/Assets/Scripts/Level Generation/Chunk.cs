@@ -13,6 +13,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] GameObject transitionUIPrefab;
     [SerializeField] Transform UIParent;
     [SerializeField] IntReference currentChunkLevel;
+
     private LevelGenerator _levelGenerator;
 
     private GameObject _spawnedUI;
@@ -40,9 +41,11 @@ public class Chunk : MonoBehaviour
     }
     private void AskForReplaceBase(GameObject gameObject)
     {
-
-        _spawnedUI = Instantiate(transitionUIPrefab, UIParent);
-        _spawnedUI.GetComponentInChildren<Button>().onClick.AddListener(ReplaceBase);
+        if (level != 1)
+        {
+            _spawnedUI = Instantiate(transitionUIPrefab, UIParent);
+            _spawnedUI.GetComponentInChildren<Button>().onClick.AddListener(ReplaceBase);
+        }
 
     }
     private void ReplaceBase()

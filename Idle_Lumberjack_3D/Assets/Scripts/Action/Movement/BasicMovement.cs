@@ -20,7 +20,6 @@ namespace Lumberjack.Actions.Movement
             get { return  baseStats.GetStat(Stat.Speed); }
         }
    
-
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -35,6 +34,7 @@ namespace Lumberjack.Actions.Movement
             }
 
             _currentMoveDirection = direction;
+
             _actionScheduler.StartAction(this);
            
             RotateInDirection();
@@ -43,9 +43,7 @@ namespace Lumberjack.Actions.Movement
             return true;
         }
         private void MoveInDirection(float deltaTime)
-        {
-            _characterController.enabled = true;
-           
+        {  
             _characterController.Move(_currentMoveDirection * currentSpeed * deltaTime);
         }
         private void RotateInDirection()
@@ -65,7 +63,7 @@ namespace Lumberjack.Actions.Movement
       
         public void Cancel()
         {
-            _characterController.enabled = false;
+            _currentMoveDirection = Vector3.zero;
             if (animator != null)
             {
                 animator.SetFloat("ForwardSpeed", 0);

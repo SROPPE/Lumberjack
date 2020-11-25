@@ -46,7 +46,8 @@ namespace Lumberjack.HealthSystem
             }
             if (destructionSequence != null)
             {
-                StartCoroutine(destructionSequence.DestructionSequenceCorutine(this));
+                var remainingHealth = 1 - damage / maxHealthPoints;
+                StartCoroutine(destructionSequence.DestructionSequenceCorutine(this,remainingHealth));
             }
         }
         private void SetEventArgs(GameObject from, float amount, float amountNormalized)

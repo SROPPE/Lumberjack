@@ -24,7 +24,7 @@ namespace Lumberjack.Stats
             FillStats();
             _statLevel[stat]++;
         }
-        public float GetStatUpgradeValue(Stat stat, int additionLevel)
+        public float GetUpgradedStatValue(Stat stat, int additionLevel)
         {
             FillStats();
             float statWithAdditionLevel = CalculateStatWithoutModifiers(stat, _statLevel[stat] + additionLevel);

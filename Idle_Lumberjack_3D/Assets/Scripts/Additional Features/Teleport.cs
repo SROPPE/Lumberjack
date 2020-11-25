@@ -20,12 +20,15 @@ public class Teleport : MonoBehaviour
 
     private IEnumerator TeleportProcess()
     {
-        yield return loadScreen.Show(timeIn);
+        if (loadScreen != null)
+        {
+            yield return loadScreen.Show(timeIn);
 
-        teleportation.Raise();
-        yield return new WaitForSeconds(loadScreenDuration);
+            teleportation.Raise();
+            yield return new WaitForSeconds(loadScreenDuration);
 
-        yield return loadScreen.Hide(timeOut);
-        yield break;
+            yield return loadScreen.Hide(timeOut);
+        }
+            yield break;
     }
 }

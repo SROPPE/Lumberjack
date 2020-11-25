@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeStatPointView : MonoBehaviour
@@ -9,14 +10,23 @@ public class UpgradeStatPointView : MonoBehaviour
     [SerializeField] private Text currentStatSizeText;
     [SerializeField] private Button interactableButton;
 
+    Dictionary<Text, string> textStaticPart;
     public Button InteractableButton => interactableButton;
-
-    public void UpdateView(UpgradeStatPointDataWrapper data)
+    private void Awake()
     {
-        upgradeSizeText.text = data.statUpgradeSize;
-        statLevelText.text = data.currentStatLevel;
-        goldRequiredText.text = data.goldRequired;
-        currentStatSizeText.text = data.currentStatSize;
+        textStaticPart = new Dictionary<Text, string>();
+        textStaticPart.Add(upgradeSizeText, upgradeSizeText.text);
+        textStaticPart.Add(statLevelText, statLevelText.text);
+        textStaticPart.Add(goldRequiredText, goldRequiredText.text);
+        textStaticPart.Add(currentStatSizeText, currentStatSizeText.text);
+    }
+
+    public void UpdateView(UpgradeStatPointData data)
+    {
+        upgradeSizeText.text = textStaticPart[upgradeSizeText] + data.statUpgradeSize;
+        statLevelText.text = textStaticPart[statLevelText] + data.currentStatLevel;
+        goldRequiredText.text = textStaticPart[goldRequiredText] + data.goldRequired;
+        currentStatSizeText.text = textStaticPart[currentStatSizeText] + data.currentStatSize;
 
     }
 }

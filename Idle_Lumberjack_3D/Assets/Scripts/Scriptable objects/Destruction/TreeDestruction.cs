@@ -6,8 +6,10 @@ public class TreeDestruction : Destruction
 {
     [SerializeField]ParticleSystem particles;
     [SerializeField] RandomAudioEvent audioEvent;
-    public override IEnumerator DestructionSequenceCorutine(MonoBehaviour runner)
+    public override IEnumerator DestructionSequenceCorutine(MonoBehaviour runner, float remainigHealthPercentage)
     {
+        runner.transform.localScale *=remainigHealthPercentage;
+
         var basePosition = runner.transform.position;
         var baseScale = runner.transform.localScale;
         if (particles != null)

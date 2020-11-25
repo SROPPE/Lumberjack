@@ -5,8 +5,8 @@ using Lumberjack.Stats;
 
 namespace Lumberjack.Control
 {
-    [RequireComponent(typeof(BasicMovement),typeof(Fighter))]
-    public class PlayerController : MonoBehaviour, IStatsProvider
+    [RequireComponent(typeof(BasicMovement), typeof(Fighter))]
+    public class Player : MonoBehaviour, IStatsProvider
     {
         [SerializeField] private Joystick movementJoystick;
         [SerializeField] private Transform rightArm;
@@ -15,6 +15,8 @@ namespace Lumberjack.Control
 
         private Fighter _fighter;
         private BasicMovement _movement;
+
+        private Vector3 _movementDirection;
 
         public Transform RightArm => rightArm;
         public BaseStats stats => playerStats;
@@ -32,7 +34,16 @@ namespace Lumberjack.Control
         {
             _movement = GetComponent<BasicMovement>();
             _fighter = GetComponent<Fighter>();
-        
+
+        }
+        private void Update()
+        {
+            UpdatePlayerInput();
+        }
+
+        private void UpdatePlayerInput()
+        {
+            _movementDirection = new Vector3(-movementJoystick.Vertical, 0f, movementJoystick.Horizontal);
         }
 
         private void FixedUpdate()
@@ -41,15 +52,9 @@ namespace Lumberjack.Control
             if (FighterControl()) return;
         }
 
-        private bool FighterControl()
-        {
-            return _fighter.StartFight();
-        }
+        private bool FighterControl() =>  _fighter.StartFight();
 
-        private bool MovementControl()
-        {
-            Vector3 movementDirection = new Vector3(-movementJoystick.Vertical, 0f, movementJoystick.Horizontal);
-            return(_movement.StartMoveAction(movementDirection, Time.fixedDeltaTime));
-        }
+        private bool MovementControl() => _movement.StartMoveAction(_movementDirection, Time.fixedDeltaTime);
+        
     }
 }
